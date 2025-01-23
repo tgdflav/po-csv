@@ -12,6 +12,9 @@ if (! global.Promise)
     global.Promise = require('promise');
 }
 
+const normalizeLineEndings = (str, normalized = '\r\n') =>
+  str.replace(/\r?\n/g, normalized);
+
 function throwUp (e)
 {
     console.error(e.stack);
@@ -162,7 +165,7 @@ function writeCsvOutput (data)
 
 function getPoItemKey (item)
 {
-    return item.msgctxt + '\0' + item.msgid;
+    return normalizeLineEndings(item.msgctxt + '\0' + item.msgid);
 }
 
 function getPoItemHumanName (item)
